@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17292523, g: 0.21610908, b: 0.29807818, a: 1}
+  m_IndirectSpecularColor: {r: 0.17292511, g: 0.21610883, b: 0.2980778, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -211,8 +211,8 @@ GameObject:
   m_Component:
   - component: {fileID: 81574173}
   - component: {fileID: 81574176}
-  - component: {fileID: 81574175}
   - component: {fileID: 81574174}
+  - component: {fileID: 81574175}
   m_Layer: 0
   m_Name: Island
   m_TagString: Untagged
@@ -275,7 +275,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.000000014901161, y: 0.000000059604645, z: 0}
 --- !u!33 &81574176
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -292,7 +292,6 @@ GameObject:
   m_Component:
   - component: {fileID: 90178604}
   - component: {fileID: 90178607}
-  - component: {fileID: 90178606}
   - component: {fileID: 90178605}
   m_Layer: 0
   m_Name: Cube (2)
@@ -345,18 +344,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &90178606
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 90178603}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &90178607
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -518,8 +505,8 @@ GameObject:
   m_Component:
   - component: {fileID: 226847628}
   - component: {fileID: 226847631}
-  - component: {fileID: 226847630}
   - component: {fileID: 226847629}
+  - component: {fileID: 226847630}
   m_Layer: 0
   m_Name: Fridge
   m_TagString: Untagged
@@ -582,7 +569,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.00000047683716, y: 0, z: 0.00000011920929}
 --- !u!33 &226847631
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -603,7 +590,7 @@ GameObject:
   - component: {fileID: 416789067}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -747,9 +734,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 625106926}
-        m_MethodName: MoveIn
-        m_Mode: 1
+      - m_Target: {fileID: 1038804013}
+        m_MethodName: StopCoroutine
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -876,7 +863,6 @@ GameObject:
   m_Component:
   - component: {fileID: 530799970}
   - component: {fileID: 530799973}
-  - component: {fileID: 530799972}
   - component: {fileID: 530799971}
   m_Layer: 0
   m_Name: Cube (4)
@@ -929,18 +915,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &530799972
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530799969}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &530799973
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -957,7 +931,6 @@ GameObject:
   m_Component:
   - component: {fileID: 536913796}
   - component: {fileID: 536913799}
-  - component: {fileID: 536913798}
   - component: {fileID: 536913797}
   m_Layer: 0
   m_Name: Cube (3)
@@ -1010,18 +983,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &536913798
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 536913795}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &536913799
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1038,8 +999,8 @@ GameObject:
   m_Component:
   - component: {fileID: 544468452}
   - component: {fileID: 544468455}
-  - component: {fileID: 544468454}
   - component: {fileID: 544468453}
+  - component: {fileID: 544468454}
   m_Layer: 0
   m_Name: Bench01
   m_TagString: Untagged
@@ -1102,7 +1063,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.000000059604645, z: 0.000000059604645}
 --- !u!33 &544468455
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1119,8 +1080,8 @@ GameObject:
   m_Component:
   - component: {fileID: 572737505}
   - component: {fileID: 572737508}
-  - component: {fileID: 572737507}
   - component: {fileID: 572737506}
+  - component: {fileID: 572737507}
   m_Layer: 0
   m_Name: Cupboard01
   m_TagString: Untagged
@@ -1274,14 +1235,13 @@ GameObject:
   - component: {fileID: 625106925}
   - component: {fileID: 625106928}
   - component: {fileID: 625106927}
-  - component: {fileID: 625106926}
   m_Layer: 5
   m_Name: AddMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &625106925
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1304,20 +1264,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1342, y: 0}
   m_SizeDelta: {x: 917, y: 987}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &625106926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 625106924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe2e5bb999f75c1418d377ecef789adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveTime: 0.2
-  moveInPos: {x: 417, y: 0, z: 0}
-  moveOutPos: {x: 1342, y: 0, z: 0}
 --- !u!114 &625106927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1729,8 +1675,8 @@ GameObject:
   m_Component:
   - component: {fileID: 980124042}
   - component: {fileID: 980124045}
-  - component: {fileID: 980124044}
   - component: {fileID: 980124043}
+  - component: {fileID: 980124044}
   m_Layer: 0
   m_Name: Bench02
   m_TagString: Untagged
@@ -1793,7 +1739,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.000000059604645, z: -0.000000014901161}
 --- !u!33 &980124045
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1810,8 +1756,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1019238704}
   - component: {fileID: 1019238707}
-  - component: {fileID: 1019238706}
   - component: {fileID: 1019238705}
+  - component: {fileID: 1019238706}
   m_Layer: 0
   m_Name: Centre Cupboard
   m_TagString: Untagged
@@ -1873,7 +1819,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.0000002, y: 1, z: 1.0000004}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1019238707
 MeshFilter:
@@ -1893,6 +1839,7 @@ GameObject:
   - component: {fileID: 1038804011}
   - component: {fileID: 1038804010}
   - component: {fileID: 1038804009}
+  - component: {fileID: 1038804013}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1927,10 +1874,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1978,6 +1925,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1038804013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1038804008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2e5bb999f75c1418d377ecef789adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenu: {fileID: 0}
+  objectMenu: {fileID: 0}
+  addMenu: {fileID: 0}
+  kitchenMenu: {fileID: 0}
+  diningMenu: {fileID: 0}
+  livingMenu: {fileID: 0}
+  moveTime: 0.2
+  moveInPos: {x: 417, y: 0, z: 0}
+  moveOutPos: {x: 1342, y: 0, z: 0}
+  chairPrefab: {fileID: 1555011822213846, guid: 640aabfc1f0281d4c893670e3fe54084,
+    type: 2}
 --- !u!1 &1080034623
 GameObject:
   m_ObjectHideFlags: 0
@@ -2803,7 +2772,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 625106926}
+      - m_Target: {fileID: 0}
         m_MethodName: MoveOut
         m_Mode: 1
         m_Arguments:
@@ -2858,8 +2827,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1523063119}
   - component: {fileID: 1523063122}
-  - component: {fileID: 1523063121}
   - component: {fileID: 1523063120}
+  - component: {fileID: 1523063121}
   m_Layer: 0
   m_Name: Cupboard02
   m_TagString: Untagged
@@ -2921,8 +2890,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: -0.000000059604645}
 --- !u!33 &1523063122
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3118,7 +3087,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1800176343}
   - component: {fileID: 1800176346}
-  - component: {fileID: 1800176345}
   - component: {fileID: 1800176344}
   m_Layer: 0
   m_Name: Cube (1)
@@ -3171,18 +3139,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &1800176345
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1800176342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1800176346
 MeshFilter:
   m_ObjectHideFlags: 0
