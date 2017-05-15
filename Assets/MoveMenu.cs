@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DentedPixel;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MoveMenu : MonoBehaviour {
 
 	public RectTransform mainMenu;
 	public RectTransform objectMenu;
+    public GameObject moveRotRect;
 	public RectTransform addMenu;
+    public RectTransform materialMenu;
 
 	public GameObject kitchenMenu;
 	public GameObject diningMenu;
@@ -26,75 +30,86 @@ public class MoveMenu : MonoBehaviour {
 
     public Transform selectedObject;
 
-    RectTransform rect;
+    public Text finishText;
+
+    public GameObject topCam;
+    public GameObject viewCam;
 
     bool isMoving;
     bool isRotating;
+    bool moveRot;
 
     bool menuOpen;
     bool mainMenuOpen;
     bool placingObject;
 
-    GameObject objectToPlace;
-    public enum MenuState
-    {
-        None,
-        MainMenu,
-        AddMenu
-    }
+    bool inAR;
 
-    MenuState menuState;
+    GameObject objectToPlace;
+
+    public bool introPlaying;
+
+    public RectTransform schnabel;
+    public RectTransform arkea;
+    public RectTransform blackBG;
+
 
 
 	// Use this for initialization
 	void Start () {
-        rect = addMenu;
-	}
+        StartCoroutine(PlayIntro());
+    }
 
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.touchCount == 1)
         {
-            if (!menuOpen)
+            if (Input.GetButtonDown("Fire1"))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                Physics.Raycast(ray, out hit);
-                if (hit.collider.gameObject.tag == "Furniture")
+                if (!menuOpen && !moveRot)
                 {
-                    ChangeMenu(1);
-                    selectedObject = hit.collider.gameObject.transform.parent;
-                } else if (hit.collider.gameObject.tag == "Floor" && !menuOpen)
-                {
-                    ChangeMenu(1);
-                    reticule.position = hit.point;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    Physics.Raycast(ray, out hit);
+                    if (hit.collider != null && hit.collider.gameObject.tag == "Furniture" && !moveRot)
+                    {
+                        ChangeMenu(6);
+                        selectedObject = hit.collider.gameObject.transform;
+                    }
+                    else if (hit.collider != null && !menuOpen && !moveRot)
+                    {
+                        ChangeMenu(1);
+                        if (hit.collider.gameObject.tag == "Floor")
+                        {
+                            reticule.position = hit.point;
+                            LeanTween.move(topCam, new Vector3(reticule.position.x, topCam.transform.position.y, reticule.position.z), 0.5f).setEase(LeanTweenType.easeInOutQuad);
+                        }
+                    }
                 }
             }
-        }
-        if (menuOpen)
-        {
-            backgroundButton.SetActive(true);
-        } else
-        {
-            backgroundButton.SetActive(false);
-        }
 
-        if (isMoving)
-        {
-            if (Input.GetButton("Fire1"))
+            if (moveRot)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                Physics.Raycast(ray, out hit);
-                if (hit.collider.gameObject.tag == "Floor")
+                if (Input.GetButton("Fire1"))
                 {
-                    selectedObject.position = hit.point;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    Physics.Raycast(ray, out hit);
+                    if (hit.collider != null && hit.collider.gameObject.tag == "Floor")
+                    {
+                        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                        {
+                            if (isMoving)
+                            {
+                                selectedObject.position = hit.point;
+                            }
+                            else
+                            {
+                                selectedObject.eulerAngles = new Vector3(0, Mathf.Atan2((Input.mousePosition.y - transform.position.y), (Input.mousePosition.x - transform.position.x)) * -Mathf.Rad2Deg - 90, 0);
+                            }
+                        }
+                    }
                 }
             }
-        }
-
-        if (isRotating)
-        {
-            selectedObject.eulerAngles = new Vector3(0, Mathf.Atan2((Input.mousePosition.y - transform.position.y), (Input.mousePosition.x - transform.position.x)) * -Mathf.Rad2Deg - 90, 0);
         }
 
     }
@@ -107,7 +122,12 @@ public class MoveMenu : MonoBehaviour {
                 menuOpen = false;
                 MoveOut(addMenu);
                 MoveOut(mainMenu);
+                MoveOut(objectMenu);
                 mainMenuOpen = false;
+                Timer.Register(0.1f, () =>
+                    backgroundButton.SetActive(false)
+                );
+                moveRotRect.SetActive(false);
                 break;
 
             case 1://main menu
@@ -115,6 +135,9 @@ public class MoveMenu : MonoBehaviour {
                 MoveInSmall(mainMenu);
                 MoveOut(addMenu);
                 mainMenuOpen = true;
+                Timer.Register(0.1f, () =>
+                    backgroundButton.SetActive(true)
+                );  
                 break;
 
             case 2://add menu
@@ -145,6 +168,26 @@ public class MoveMenu : MonoBehaviour {
                 livingMenu.SetActive(false);
                 kitchenMenu.SetActive(false);
                 diningMenu.SetActive(true);
+                break;
+
+            case 6://object menu
+                menuOpen = true;
+                MoveInSmall(objectMenu);
+                MoveOut(addMenu);
+                Timer.Register(0.1f, () =>
+                    backgroundButton.SetActive(true)
+                );
+                break;
+
+            case 7://moverot out
+                MoveOut(objectMenu);
+                backgroundButton.SetActive(false);
+                moveRotRect.SetActive(true);
+                break;
+
+            case 8://material menu
+                MoveInLarge(materialMenu);
+                MoveOut(objectMenu);
                 break;
         }
     }
@@ -184,11 +227,63 @@ public class MoveMenu : MonoBehaviour {
 
     public void MoveObject()
     {
+        finishText.text = "FINISH MOVING";
+        ChangeMenu(7);
+        moveRot = true;
         isMoving = true;
     }
 
     public void RotatingObject()
     {
+        finishText.text = "FINISH ROTATING";
+        ChangeMenu(7);
+        moveRot = true;
         isRotating = true;
+    }
+
+    public void FinishMoveRot()
+    {
+        ChangeMenu(0);
+        moveRot = false;
+        isRotating = false;
+        isMoving = false;
+    }
+
+    public void SwitchToAR()
+    {
+        ChangeMenu(0);
+        if (!inAR)
+        {
+            viewCam.transform.position = new Vector3(reticule.position.x, 1.8f, reticule.position.z);
+            topCam.SetActive(false);
+            viewCam.SetActive(true);
+            viewCam.GetComponent<Cardboard>().Recenter();
+            inAR = true;
+        }
+        else
+        {
+            viewCam.SetActive(false);
+            topCam.SetActive(true);
+            inAR = false;
+        }
+    }
+
+    public void ChangeMaterial(Material mat)
+    {
+        selectedObject.GetComponent<Renderer>().material = mat;
+    }
+
+    IEnumerator PlayIntro()
+    {
+        LeanTween.alpha(schnabel, 1, 1);
+        yield return new WaitForSeconds(3f);
+        LeanTween.alpha(schnabel, 0, 1);
+        yield return new WaitForSeconds(1f);
+        LeanTween.alpha(arkea, 1, 1);
+        yield return new WaitForSeconds(3f);
+        LeanTween.alpha(arkea, 0, 1);
+        yield return new WaitForSeconds(1f);
+        ChangeMenu(0);
+        LeanTween.alpha(blackBG, 0, 1);
     }
 }
