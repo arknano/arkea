@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7fdc2b77f5df46142b3cdda71fcb3cef
-timeCreated: 1494845281
+guid: 1301d5719df1ec5469c66644a28a6799
+timeCreated: 1494911834
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: furniture:pCube102
+    4300000: pCube6
     6400000: //RootNode
     9500000: //RootNode
   materials:

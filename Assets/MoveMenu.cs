@@ -42,6 +42,8 @@ public class MoveMenu : MonoBehaviour {
     bool menuOpen;
     bool mainMenuOpen;
     bool placingObject;
+    bool objectMenuOpen;
+    bool materialMenuOpen;
 
     bool inAR;
 
@@ -61,10 +63,11 @@ public class MoveMenu : MonoBehaviour {
     }
 
 	void Update () {
-        if (Input.touchCount == 1)
+        if (Application.isEditor || Input.touchCount == 1)
         {
             if (Input.GetButtonDown("Fire1"))
             {
+
                 if (!menuOpen && !moveRot)
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -77,6 +80,7 @@ public class MoveMenu : MonoBehaviour {
                     }
                     else if (hit.collider != null && !menuOpen && !moveRot)
                     {
+                        //viewCam.GetComponent<Cardboard>().Recenter();
                         ChangeMenu(1);
                         if (hit.collider.gameObject.tag == "Floor")
                         {
@@ -91,6 +95,7 @@ public class MoveMenu : MonoBehaviour {
             {
                 if (Input.GetButton("Fire1"))
                 {
+                    print("fire");
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
                     Physics.Raycast(ray, out hit);
@@ -123,11 +128,14 @@ public class MoveMenu : MonoBehaviour {
                 MoveOut(addMenu);
                 MoveOut(mainMenu);
                 MoveOut(objectMenu);
+                MoveOut(materialMenu);
                 mainMenuOpen = false;
+                objectMenuOpen = false;
                 Timer.Register(0.1f, () =>
                     backgroundButton.SetActive(false)
                 );
                 moveRotRect.SetActive(false);
+                materialMenuOpen = false;
                 break;
 
             case 1://main menu
@@ -171,9 +179,11 @@ public class MoveMenu : MonoBehaviour {
                 break;
 
             case 6://object menu
+                objectMenuOpen = true;
                 menuOpen = true;
                 MoveInSmall(objectMenu);
-                MoveOut(addMenu);
+                MoveOut(materialMenu);
+                materialMenuOpen = false;
                 Timer.Register(0.1f, () =>
                     backgroundButton.SetActive(true)
                 );
@@ -181,6 +191,7 @@ public class MoveMenu : MonoBehaviour {
 
             case 7://moverot out
                 MoveOut(objectMenu);
+                objectMenuOpen = false;
                 backgroundButton.SetActive(false);
                 moveRotRect.SetActive(true);
                 break;
@@ -188,6 +199,8 @@ public class MoveMenu : MonoBehaviour {
             case 8://material menu
                 MoveInLarge(materialMenu);
                 MoveOut(objectMenu);
+                objectMenuOpen = false;
+                materialMenuOpen = true;
                 break;
         }
     }
@@ -215,9 +228,12 @@ public class MoveMenu : MonoBehaviour {
 
     public void ExitMenuCheck ()
     {
-        if (mainMenuOpen)
+        if (mainMenuOpen || objectMenuOpen)
         {
             ChangeMenu(0);
+        } else if (materialMenuOpen)
+        {
+            ChangeMenu(6);
         } else
         {
             ChangeMenu(1);
