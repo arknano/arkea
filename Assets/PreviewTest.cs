@@ -8,15 +8,17 @@ using System.IO;
 
 public class PreviewTest : MonoBehaviour {
 
-    public GameObject[] prefab;
+    public List<GameObject> prefab = new List<GameObject>();
 
 	// Use this for initialization
 	void Start () {
         foreach (GameObject prefab in prefab)
         {
+            print(prefab.name);
             Texture2D tex = AssetPreview.GetAssetPreview(prefab);
             byte[] bytes = tex.EncodeToPNG();
             File.WriteAllBytes(Application.dataPath + "/Images/Furniture/" + prefab.name + ".png", bytes);
+            bytes = null;
         }
         AssetDatabase.Refresh();
 	}
